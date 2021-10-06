@@ -1,51 +1,45 @@
+import 'package:basic_one/logic/cubit/internet_cubit.dart';
 import 'package:basic_one/presentation/router/app_router.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import './logic/cubit/counter_cubit.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp(
+    appRouter: AppRouter(),
+    connectivity: Connectivity(),
+  ));
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
+class MyApp extends StatelessWidget {
+  final AppRouter appRouter;
+  final Connectivity connectivity;
 
-class _MyAppState extends State<MyApp> {
-  final AppRouter _appRouter = AppRouter();
-
-  // Using Global Access
-  // @override
-  // Widget build(BuildContext context) {
-  //   return BlocProvider<CounterCubit>(
-  //     create: (context) => CounterCubit(),
-  //     child: MaterialApp(
-  //       title: 'Flutter Demo',
-  //       theme: ThemeData(
-  //         primarySwatch: Colors.blue,
-  //         visualDensity: VisualDensity.adaptivePlatformDensity,
-  //       ),
-  //       onGenerateRoute: _appRouter.onGenerateRoute,
-  //     ),
-  //   );
-  // }
+  const MyApp({
+    Key? key,
+    required this.appRouter,
+    required this.connectivity,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<InternetCubit>(
+            create: (context) => InternetCubit(connectivity: connectivity)),
+        BlocProvider<CounterCubit>(
+            create: (context) =>
+                CounterCubit(internetCubit: context.read<InternetCubit>())),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        onGenerateRoute: appRouter.onGenerateRoute,
       ),
-      onGenerateRoute: _appRouter.onGenerateRoute,
     );
-  }
-
-  @override
-  void dispose() {
-    _appRouter.dispose();
-    super.dispose();
   }
 }
