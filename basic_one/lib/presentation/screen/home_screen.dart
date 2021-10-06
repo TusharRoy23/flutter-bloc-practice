@@ -89,6 +89,46 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 24,
               ),
+              Builder(builder: (context) {
+                final counterState = context.watch<CounterCubit>().state;
+                final internetState = context.watch<InternetCubit>().state;
+
+                if (internetState is InternetConnected &&
+                    internetState.connectionType == ConnectionType.Mobile) {
+                  return Text(
+                    'Counter: ' +
+                        counterState.counterValue.toString() +
+                        ' Internet: Mobile',
+                    style: Theme.of(context).textTheme.headline6,
+                  );
+                } else if (internetState is InternetConnected &&
+                    internetState.connectionType == ConnectionType.Wifi) {
+                  return Text(
+                    'Counter: ' +
+                        counterState.counterValue.toString() +
+                        ' Internet: Wifi',
+                    style: Theme.of(context).textTheme.headline6,
+                  );
+                } else {
+                  return Text(
+                    'Counter: ' +
+                        counterState.counterValue.toString() +
+                        ' Internet: Disconnected',
+                    style: Theme.of(context).textTheme.headline6,
+                  );
+                }
+              }),
+              SizedBox(
+                height: 24,
+              ),
+              Builder(builder: (ctx) {
+                final counterValue = ctx
+                    .select((CounterCubit cubit) => cubit.state.counterValue);
+                return Text(
+                  'Counter: ' + counterValue.toString(),
+                  style: Theme.of(ctx).textTheme.headline6,
+                );
+              }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
