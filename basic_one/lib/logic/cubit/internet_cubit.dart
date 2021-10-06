@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:basic_one/constants/enums.dart';
+import '../../constants/enums.dart';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
