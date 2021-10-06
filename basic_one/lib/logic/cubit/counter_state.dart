@@ -36,5 +36,5 @@ class CounterState extends Equatable {
       CounterState.fromMap(json.decode(source));
 
   @override
-  bool get stringify => true;
+  String toString() => 'CounterState(counterValue: $counterValue)';
 }
