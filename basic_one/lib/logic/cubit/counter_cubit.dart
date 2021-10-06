@@ -1,11 +1,13 @@
-// import 'package:meta/meta.dart';
-import 'dart:async';
+import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 part 'counter_state.dart';
 
-class CounterCubit extends Cubit<CounterState> {
-  CounterCubit() : super(CounterState(counterValue: 0));
+class CounterCubit extends Cubit<CounterState> with HydratedMixin {
+  CounterCubit() : super(CounterState(counterValue: 0)) {
+    hydrate();
+  }
 
   void increment() => emit(
         CounterState(counterValue: state.counterValue + 1),
@@ -16,7 +18,12 @@ class CounterCubit extends Cubit<CounterState> {
       );
 
   @override
-  Future<void> close() {
-    return super.close();
+  CounterState? fromJson(Map<String, dynamic> json) {
+    return CounterState.fromMap(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(CounterState state) {
+    return state.toMap();
   }
 }
