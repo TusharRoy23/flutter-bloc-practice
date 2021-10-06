@@ -1,5 +1,5 @@
-import 'package:basic_one/constants/enums.dart';
-import 'package:basic_one/logic/cubit/internet_cubit.dart';
+import '../../constants/enums.dart';
+import '../../logic/cubit/internet_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../logic/cubit/counter_cubit.dart';
@@ -33,6 +33,11 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           backgroundColor: widget.color,
           title: Text(widget.title!),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.settings),
+                onPressed: () => Navigator.pushNamed(context, '/settings')),
+          ],
         ),
         body: Center(
           child: Column(

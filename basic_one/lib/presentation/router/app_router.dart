@@ -1,7 +1,8 @@
-import 'package:basic_one/logic/cubit/counter_cubit.dart';
-import 'package:basic_one/presentation/screen/home_screen.dart';
-import 'package:basic_one/presentation/screen/second_screen.dart';
-import 'package:basic_one/presentation/screen/third_screen.dart';
+import '../../logic/cubit/counter_cubit.dart';
+import '../screen/home_screen.dart';
+import '../screen/second_screen.dart';
+import '../screen/settings_screen.dart';
+import '../screen/third_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,6 +32,10 @@ class AppRouter {
             title: "Thirst Screen",
             color: Colors.greenAccent,
           ),
+        );
+      case '/settings':
+        return MaterialPageRoute(
+          builder: (_) => SettingsScreen(),
         );
       default:
         return null;
