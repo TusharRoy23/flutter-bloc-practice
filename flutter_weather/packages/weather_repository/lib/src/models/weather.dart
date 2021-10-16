@@ -1,0 +1,26 @@
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:weather_repository/src/enums/enum_variables.dart';
+
+part 'weather.g.dart';
+
+@JsonSerializable()
+class Weather extends Equatable {
+  final String location;
+  final double temperature;
+  final WeatherCondition condition;
+
+  Weather({
+    required this.location,
+    required this.temperature,
+    required this.condition,
+  });
+
+  factory Weather.fromJson(Map<String, dynamic> json) =>
+      _$WeatherFromJson(json);
+
+  Map<String, dynamic> toJson() => _$WeatherToJson(this);
+
+  @override
+  List<Object?> get props => [location, temperature, condition];
+}
