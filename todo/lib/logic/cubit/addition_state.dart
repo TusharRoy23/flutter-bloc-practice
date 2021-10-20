@@ -13,9 +13,7 @@ class LoadingState extends AdditionState {
 }
 
 class MoneyState extends AdditionState {
-  MoneyState({required this.deposite}) {
-    log('deposite: $deposite');
-  }
+  MoneyState({required this.deposite});
   final num deposite;
 
   @override
@@ -23,20 +21,8 @@ class MoneyState extends AdditionState {
 }
 
 class TransactionListState extends AdditionState {
-  TransactionListState({required this.transactions}) {
-    log('transactions const $transactions');
-  }
+  TransactionListState({required this.transactions});
   final List<TransactionEntity> transactions;
-
-  // TransactionListState copyWith({
-  //   required List<TransactionEntity> transactions,
-  // }) {
-  //   log('transactions list $transactions');
-  //   return TransactionListState(
-  //     transactions: transactions,
-  //   );
-  // }
-
   @override
   List<Object> get props => [transactions];
 }

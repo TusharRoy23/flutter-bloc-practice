@@ -3,8 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_repository/money_repository.dart';
+import 'package:todo/logic/bloc/addition_bloc.dart';
 import 'package:todo/widgets/custom_input_field.dart';
-import './logic/cubit/addition_cubit.dart';
+//import './logic/cubit/addition_cubit.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -43,7 +44,9 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 if (_depositeController.text.isNotEmpty) {
                   counter = int.parse(_depositeController.value.text);
-                  BlocProvider.of<AdditionCubit>(context).doDeposite(counter);
+                  // BlocProvider.of<AdditionCubit>(context).doDeposite(counter);
+                  BlocProvider.of<AdditionBloc>(context)
+                      .add(DoTransactionEvent(counter));
                   _depositeController.clear();
                 }
               },
@@ -60,7 +63,9 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 if (_withdrawController.text.isNotEmpty) {
                   counter = int.parse(_withdrawController.value.text);
-                  BlocProvider.of<AdditionCubit>(context).doWithdraw(counter);
+                  // BlocProvider.of<AdditionCubit>(context).doWithdraw(counter);
+                  BlocProvider.of<AdditionBloc>(context)
+                      .add(DoTransactionEvent(-counter));
                   _withdrawController.clear();
                 }
               },
@@ -69,9 +74,9 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 20,
             ),
-            BlocConsumer<AdditionCubit, AdditionState>(
+            BlocConsumer<AdditionBloc, AdditionState>(
               builder: (ctx, state) {
-                if (state is MoneyState) {
+                if (state is TransactionState) {
                   return Text(
                     'Total count: ${state.deposite}',
                     style: TextStyle(fontSize: 20),
@@ -81,20 +86,23 @@ class _HomeState extends State<Home> {
               },
               listener: (ctx, state) {},
             ),
+
             SizedBox(
               height: 20,
             ),
             ElevatedButton(
               onPressed: () {
-                BlocProvider.of<AdditionCubit>(context).transactionList();
+                // BlocProvider.of<AdditionCubit>(context).transactionList();
+                BlocProvider.of<AdditionBloc>(context)
+                    .add(TransactionListEvent());
               },
               child: Icon(Icons.search),
             ),
-            BlocConsumer<AdditionCubit, AdditionState>(
+            BlocConsumer<AdditionBloc, AdditionState>(
               builder: (ctx, state) {
                 if (state is LoadingState)
                   return Center(child: CircularProgressIndicator());
-                if (state is TransactionListState) {
+                if (state is TransactionState) {
                   return ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -109,6 +117,25 @@ class _HomeState extends State<Home> {
               },
               listener: (ctx, state) {},
             ),
+            // BlocConsumer<AdditionCubit, AdditionState>(
+            //   builder: (ctx, state) {
+            //     if (state is LoadingState)
+            //       return Center(child: CircularProgressIndicator());
+            //     if (state is TransactionListState) {
+            //       return ListView.builder(
+            //         scrollDirection: Axis.vertical,
+            //         shrinkWrap: true,
+            //         itemBuilder: (ctx, int index) {
+            //           var item = state.transactions[index];
+            //           return Text('${item.amount}');
+            //         },
+            //         itemCount: state.transactions.length,
+            //       );
+            //     }
+            //     return Center();
+            //   },
+            //   listener: (ctx, state) {},
+            // ),
           ],
         ),
       ),

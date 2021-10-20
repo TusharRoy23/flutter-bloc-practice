@@ -32,6 +32,17 @@ class FirebaseMoneyRepository implements MoneyRepository {
   }
 
   @override
+  Future<String> doTransaction(num amount) {
+    return _transaction
+        .add({
+          'amount': amount,
+          'date': DateTime.now(),
+        })
+        .then((value) => value.id)
+        .catchError((error) => error);
+  }
+
+  @override
   Future<dynamic> transactionList() async {
     var list = [];
     return _transaction.get().then((value) {
@@ -55,30 +66,4 @@ class FirebaseMoneyRepository implements MoneyRepository {
       return list;
     }).catchError((error) => error);
   }
-
-  // @override
-  // Stream<List<Transaction>> transactionList() {
-  //   // return _transaction
-  //   //     .get()
-  //   //     .then((value) => value)
-  //   //     .catchError((error) => error);
-  //   return _transaction.snapshots().map((snapshot) {
-  //     return snapshot.docs.map((doc) {
-  //       return Transaction(
-  //         id: doc.id,
-  //         amount: 20.5,
-  //         date: 'abcd',
-  //       );
-  //     }).toList();
-  //   });
-  // }
-
-  //  fromEntity(TodoEntity entity) {
-  //   return Todo(
-  //     id: entity.id,
-  //     task: entity.task,
-  //     complete: entity.complete,
-  //     note: entity.note,
-  //   );
-  // }
 }
