@@ -1,5 +1,6 @@
 import 'logic/cubit/internet_cubit.dart';
 import 'logic/cubit/settings_cubit.dart';
+import 'logic/utility/app_bloc_observer.dart';
 import 'presentation/router/app_router.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ void main() async {
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
+  Bloc.observer = AppBlocObserver();
   runApp(MyApp(
     appRouter: AppRouter(),
     connectivity: Connectivity(),
