@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/landing_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,10 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         body: Center(
-          child: Text(
-            'TODO',
-            style: TextStyle(fontSize: 25),
-          ),
+          child: LandingScreen(),
         ),
       ),
     );
