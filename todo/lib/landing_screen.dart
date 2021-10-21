@@ -16,7 +16,7 @@ class LandingScreen extends StatelessWidget {
     return BlocProvider<TodosBloc>(
       create: (context) => TodosBloc(
         todoRepository: TodoRepository(),
-      ),
+      )..add(TodosLoaded()),
       child: TodoScreen(),
     );
   }

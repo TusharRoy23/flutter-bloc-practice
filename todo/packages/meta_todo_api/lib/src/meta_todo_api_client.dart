@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:http/http.dart' as http;
-import 'package:meta_todo_api/src/models/model.dart';
 
 class TodoRequestFailure implements Exception {}
 
@@ -14,7 +12,7 @@ class MetaTodoApiClient {
       : _httpClient = httpClient ?? http.Client();
 
   Future<List> fetchTodoList() async {
-    final url = Uri.parse('$_baseUrl?_limit=10');
+    final url = Uri.parse('$_baseUrl?_limit=15');
     final response = await _httpClient.get(url);
 
     if (response.statusCode != 200) {
