@@ -1,0 +1,4 @@
+#Wed Oct 13 18:32:35 BDT 2021
+base.0=/home/tushar/Documents/flutter-work/flutter-bloc-practice/expense_app/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
