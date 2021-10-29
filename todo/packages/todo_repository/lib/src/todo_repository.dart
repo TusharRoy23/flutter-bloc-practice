@@ -1,4 +1,4 @@
-import 'package:meta_todo_api/meta_todo_api.dart';
+import 'package:meta_api/meta_api.dart';
 import 'package:todo_repository/src/models/models.dart';
 
 class TodoFailure implements Exception {}

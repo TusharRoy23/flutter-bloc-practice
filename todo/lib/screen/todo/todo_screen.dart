@@ -2,17 +2,38 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo/bloc/todos_bloc.dart';
+import 'package:todo/bloc/todos/todos_bloc.dart';
 import 'package:todo/model/todo.dart';
+import 'package:todo_repository/todo_repository.dart';
 
-class TodoScreen extends StatefulWidget {
-  TodoScreen({Key? key}) : super(key: key);
+class TodoScreen extends StatelessWidget {
+  const TodoScreen({Key? key}) : super(key: key);
+
+  static Route route() {
+    return MaterialPageRoute(builder: (_) => TodoScreen());
+  }
 
   @override
-  _TodoScreenState createState() => _TodoScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider<TodosBloc>(
+      create: (context) => TodosBloc(
+        todoRepository: TodoRepository(),
+      )..add(
+          TodosLoaded(),
+        ),
+      child: TodoListScreen(),
+    );
+  }
 }
 
-class _TodoScreenState extends State<TodoScreen> {
+class TodoListScreen extends StatefulWidget {
+  TodoListScreen({Key? key}) : super(key: key);
+
+  @override
+  _TodoListScreenState createState() => _TodoListScreenState();
+}
+
+class _TodoListScreenState extends State<TodoListScreen> {
   var _titleController = TextEditingController();
 
   @override
