@@ -29,13 +29,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.6.1"
-  auth_repository:
-    dependency: "direct main"
-    description:
-      path: "packages/auth_repository"
-      relative: true
-    source: path
-    version: "0.0.1"
   bloc:
     dependency: "direct main"
     description:
@@ -466,6 +459,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  repository_module:
+    dependency: "direct main"
+    description:
+      path: "packages/repository_module"
+      relative: true
+    source: path
+    version: "0.0.1"
   shelf:
     dependency: transitive
     description:
@@ -555,13 +555,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  todo_repository:
-    dependency: "direct main"
-    description:
-      path: "packages/todo_repository"
-      relative: true
-    source: path
-    version: "0.0.1"
   typed_data:
     dependency: transitive
     description:

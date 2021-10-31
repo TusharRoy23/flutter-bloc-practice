@@ -1,8 +1,8 @@
-import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:repository_module/repository_module.dart';
 import 'package:todo/bloc/auth/auth_bloc.dart';
 import 'package:todo/landing_screen.dart';
 

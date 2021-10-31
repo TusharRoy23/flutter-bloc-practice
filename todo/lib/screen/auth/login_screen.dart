@@ -1,8 +1,6 @@
-import 'dart:developer';
-
-import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:repository_module/repository_module.dart';
 import 'package:todo/bloc/login/login_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -22,17 +20,9 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-// class LoginElementScreen extends StatefulWidget {
-//   const LoginElementScreen({Key? key}) : super(key: key);
-
-//   @override
-//   _LoginElementScreenState createState() => _LoginElementScreenState();
-// }
-
 class LoginElementScreen extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  // final AuthRepository _authRepository = AuthRepository();
 
   @override
   Widget build(BuildContext context) {

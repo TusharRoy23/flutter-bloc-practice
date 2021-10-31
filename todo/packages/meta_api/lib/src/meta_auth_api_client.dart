@@ -60,9 +60,9 @@ class MetaAuthApiClient {
     }
   }
 
-  doLogout() async {
+  Future<void> doLogout() async {
     try {
-      var response = await _baseApiClient.get('auth/logout/');
+      await _baseApiClient.get('auth/logout/');
       storage.deleteAll();
     } catch (_) {
       throw AuthenticationFailure();

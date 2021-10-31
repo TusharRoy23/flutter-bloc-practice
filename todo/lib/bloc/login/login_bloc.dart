@@ -1,10 +1,7 @@
-import 'dart:developer';
-
-import 'package:auth_repository/auth_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:repository_module/repository_module.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -13,6 +10,7 @@ class LoginException implements Exception {}
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthRepository _authRepository;
+
   LoginBloc(AuthRepository authRepository)
       : _authRepository = authRepository,
         super(LoginInitialState()) {
@@ -35,22 +33,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           currentState.username,
           currentState.password,
         );
-        LoginInitialState();
       }
     } catch (e) {
       throw LoginException();
     }
   }
-
-  // @override
-  // LoginState? fromJson(Map<String, dynamic> json) {
-  //   // TODO: implement fromJson
-  //   throw UnimplementedError();
-  // }
-
-  // @override
-  // Map<String, dynamic>? toJson(LoginState state) {
-  //   // TODO: implement toJson
-  //   throw UnimplementedError();
-  // }
 }

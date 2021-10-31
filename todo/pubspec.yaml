@@ -23,10 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  todo_repository:
-    path: packages/todo_repository
-  auth_repository:
-    path: packages/auth_repository
+  repository_module:
+    path: packages/repository_module
   bloc: ^7.1.0
   hydrated_bloc: ^7.1.0
   equatable: ^2.0.0

@@ -1,5 +1,6 @@
 import 'package:meta_api/meta_api.dart';
-import 'package:todo_repository/src/models/models.dart';
+
+import '../repository_module.dart';
 
 class TodoFailure implements Exception {}
 
@@ -12,13 +13,12 @@ class TodoRepository {
   Future<List<Todo>> getTodo() async {
     try {
       final todolist = await _todoApiClient.fetchTodoList();
-      return todolist.isNotEmpty
+      return todolist!.isNotEmpty
           ? todolist
               .map(
                 (todo) => Todo(
                   id: todo['id'],
                   title: todo['title'],
-                  completed: todo['completed'],
                 ),
               )
               .toList()

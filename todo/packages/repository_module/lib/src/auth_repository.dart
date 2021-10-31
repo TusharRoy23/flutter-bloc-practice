@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
-
-import 'package:auth_repository/src/enums/authentication_status.dart';
-import 'package:auth_repository/src/model/user.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:meta_api/meta_api.dart';
+
+import '../repository_module.dart';
 
 class AuthenticationFailure implements Exception {}
 
@@ -13,7 +12,6 @@ class UserNotFound implements Exception {}
 class AuthRepository {
   final MetaAuthApiClient _authApiClient;
   final _controller = StreamController<AuthenticationStatus>();
-  final _tokenController = StreamController<User>();
   var storage = FlutterSecureStorage();
 
   AuthRepository({MetaAuthApiClient? authApiClient})
@@ -22,22 +20,10 @@ class AuthRepository {
   Stream<AuthenticationStatus> get status async* {
     var accessToken = await storage.read(key: 'accessToken');
     await Future<void>.delayed(const Duration(seconds: 1));
-    yield accessToken!.isNotEmpty
+    yield accessToken != null
         ? AuthenticationStatus.authenticated
         : AuthenticationStatus.unauthenticated;
     yield* _controller.stream;
-  }
-
-  Stream<User> get token async* {
-    var accessToken = await storage.read(key: 'accessToken');
-    var refreshToken = await storage.read(key: 'refreshToken');
-
-    await Future<void>.delayed(const Duration(seconds: 1));
-    yield User.token(
-      accessToken: accessToken!,
-      refreshToken: refreshToken!,
-    );
-    yield* _tokenController.stream;
   }
 
   Future<User?> doLogin(String username, String password) async {
@@ -48,13 +34,6 @@ class AuthRepository {
       );
       if (userInfo!.username!.isNotEmpty) {
         _controller.add(AuthenticationStatus.authenticated);
-
-        _tokenController.add(
-          User.token(
-            accessToken: userInfo.token!.accessToken!,
-            refreshToken: userInfo.token!.refreshToken!,
-          ),
-        );
 
         return User(
           accessToken: userInfo.token!.accessToken!,
@@ -71,7 +50,7 @@ class AuthRepository {
     }
   }
 
-  doLogout() async {
+  Future<void> doLogout() async {
     try {
       await _authApiClient.doLogout();
       _controller.add(AuthenticationStatus.unauthenticated);
@@ -97,6 +76,5 @@ class AuthRepository {
 
   void dispose() {
     _controller.close();
-    _tokenController.close();
   }
 }

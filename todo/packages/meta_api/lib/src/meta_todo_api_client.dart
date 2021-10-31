@@ -1,25 +1,24 @@
 import 'dart:convert';
-
-import 'package:http/http.dart' as http;
+import 'dart:developer';
+import 'package:meta_api/src/base_api_client.dart';
 
 class TodoRequestFailure implements Exception {}
 
 class MetaTodoApiClient {
-  final http.Client _httpClient;
-  static const _baseUrl = 'https://jsonplaceholder.typicode.com/todos';
+  final BaseApiClient _baseApiClient;
 
-  MetaTodoApiClient({http.Client? httpClient})
-      : _httpClient = httpClient ?? http.Client();
+  MetaTodoApiClient({BaseApiClient? baseApiClient})
+      : _baseApiClient = baseApiClient ?? BaseApiClient();
 
-  Future<List> fetchTodoList() async {
-    final url = Uri.parse('$_baseUrl?_limit=15');
-    final response = await _httpClient.get(url);
+  Future<List?> fetchTodoList() async {
+    try {
+      var response = await _baseApiClient.get('todo/');
 
-    if (response.statusCode != 200) {
+      final todoJson = jsonDecode(response.body) as List;
+      return todoJson.toList();
+    } catch (e) {
+      log('error: $e');
       throw TodoRequestFailure();
     }
-
-    final todoJson = jsonDecode(response.body) as List;
-    return todoJson.toList();
   }
 }

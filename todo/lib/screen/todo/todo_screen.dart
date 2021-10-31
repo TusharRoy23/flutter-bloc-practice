@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:repository_module/repository_module.dart';
+import 'package:todo/bloc/auth/auth_bloc.dart';
 import 'package:todo/bloc/todos/todos_bloc.dart';
-import 'package:todo/model/todo.dart';
-import 'package:todo_repository/todo_repository.dart';
 
 class TodoScreen extends StatelessWidget {
   const TodoScreen({Key? key}) : super(key: key);
@@ -35,12 +35,21 @@ class TodoListScreen extends StatefulWidget {
 
 class _TodoListScreenState extends State<TodoListScreen> {
   var _titleController = TextEditingController();
+  AuthRepository _authRepository = AuthRepository();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('TODO List'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<AuthBloc>().add(AuthLogoutRequested());
+            },
+            icon: Icon(Icons.logout),
+          ),
+        ],
       ),
       body: BlocConsumer<TodosBloc, TodosState>(
         builder: (_, state) {

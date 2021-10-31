@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:todo/model/todo.dart';
-import 'package:todo_repository/todo_repository.dart';
+import 'package:repository_module/repository_module.dart';
 
 part 'todos_event.dart';
 part 'todos_state.dart';
@@ -22,7 +21,6 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
                   (todo) => Todo(
                     id: todo.id,
                     title: todo.title,
-                    completed: todo.completed,
                   ),
                 )
                 .toList()
