@@ -1,12 +1,13 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:exception_handler/exception_handler.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:repository_module/repository_module.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
-
-class LoginException implements Exception {}
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthRepository _authRepository;
@@ -28,14 +29,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       var currentState = state;
       if (currentState is DoLoginState) {
-        LoginLoadingState();
+        emit(LoginLoadingState());
         await _authRepository.doLogin(
           currentState.username,
           currentState.password,
         );
       }
-    } catch (e) {
-      throw LoginException();
+    } on PostRequestException catch (e) {
+      emit(
+        LoginExceptionState(e.message),
+      );
+      throw PostRequestException(message: e.message);
     }
   }
 }

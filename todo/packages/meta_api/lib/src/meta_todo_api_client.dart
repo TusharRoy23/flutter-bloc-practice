@@ -13,8 +13,7 @@ class MetaTodoApiClient {
   Future<List?> fetchTodoList() async {
     try {
       var response = await _baseApiClient.get('todo/');
-
-      final todoJson = jsonDecode(response.body) as List;
+      final todoJson = response as List;
       return todoJson.toList();
     } catch (e) {
       log('error: $e');

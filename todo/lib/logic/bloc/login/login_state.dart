@@ -20,3 +20,9 @@ class DoLoginState extends LoginState {
   @override
   List<Object> get props => [username, password];
 }
+
+class LoginExceptionState extends LoginState {
+  final List<dynamic> message;
+
+  LoginExceptionState(this.message);
+}

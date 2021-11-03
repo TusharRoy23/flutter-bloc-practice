@@ -17,7 +17,7 @@ class _ThirdScreenState extends State<ThirdScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: homeScreenKey,
+      // key: homeScreenKey,
       appBar: AppBar(
         backgroundColor: widget.color,
         title: Text(widget.title!),

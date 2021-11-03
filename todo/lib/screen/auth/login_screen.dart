@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:repository_module/repository_module.dart';
-import 'package:todo/bloc/login/login_bloc.dart';
+import 'package:todo/constants/enums.dart';
+import 'package:todo/logic/bloc/login/login_bloc.dart';
+import 'package:todo/logic/cubit/internet_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -56,26 +60,6 @@ class LoginElementScreen extends StatelessWidget {
                 height: 50,
               ),
               BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
-                // if (state is LoginLoadingState) {
-                //   return Center(
-                //     child: CircularProgressIndicator(),
-                //   );
-                // } else if (state is LoginInitialState) {
-                //   return ElevatedButton(
-                //     onPressed: () {
-                //       context.read<LoginBloc>().add(
-                //             LoginAuthValue(
-                //               username: _usernameController.value.text,
-                //               password: _passwordController.value.text,
-                //             ),
-                //           );
-                //       context.read<LoginBloc>().add(const LoginSubmitted());
-                //     },
-                //     child: Text('LOGIN'),
-                //   );
-                // } else {
-                //   return Center();
-                // }
                 return ElevatedButton(
                   onPressed: () {
                     context.read<LoginBloc>().add(
@@ -86,8 +70,18 @@ class LoginElementScreen extends StatelessWidget {
                         );
                     context.read<LoginBloc>().add(const LoginSubmitted());
                   },
-                  child: Text('LOGIN'),
+                  child: state is LoginLoadingState
+                      ? CircularProgressIndicator(
+                          color: Colors.white70,
+                        )
+                      : Text('LOGIN'),
                 );
+              }),
+              BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+                if (state is LoginExceptionState) {
+                  return Text(state.message[0]);
+                }
+                return Center();
               }),
             ],
           ),

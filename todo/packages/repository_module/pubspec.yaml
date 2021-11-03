@@ -13,6 +13,8 @@ dependencies:
   json_annotation: ^4.0.0
   meta_api:
     path: ../meta_api
+  exception_handler:
+    path: ../exception_handler
   flutter_secure_storage: ^4.2.1
 
 dev_dependencies:

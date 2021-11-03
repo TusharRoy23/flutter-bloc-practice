@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:repository_module/repository_module.dart';
-import 'package:todo/bloc/auth/auth_bloc.dart';
-import 'package:todo/bloc/todos/todos_bloc.dart';
+import 'package:todo/logic/bloc/auth/auth_bloc.dart';
+import 'package:todo/logic/bloc/todos/todos_bloc.dart';
 
 class TodoScreen extends StatelessWidget {
   const TodoScreen({Key? key}) : super(key: key);

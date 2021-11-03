@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:exception_handler/exception_handler.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:meta_api/src/base_api_client.dart';
 import 'package:meta_api/src/model/token.dart';
@@ -24,7 +25,7 @@ class MetaAuthApiClient {
         jsonEncode({'username': username, 'password': password}),
       );
 
-      Map<String, dynamic> userMap = jsonDecode(response.body);
+      Map<String, dynamic> userMap = response!; // jsonDecode(response);
       await storage.write(
           key: 'accessToken', value: 'Bearer ' + userMap['accessToken']);
       await storage.write(key: 'refreshToken', value: userMap['refreshToken']);
@@ -46,15 +47,15 @@ class MetaAuthApiClient {
       );
       var user = User.fromJson(users.toJson());
       return user;
-    } catch (_) {
-      throw UserNotFound();
+    } on PostRequestException catch (e) {
+      throw PostRequestException(message: e.message);
     }
   }
 
   Future<Map<String, dynamic>> getUser() async {
     try {
       var response = await _baseApiClient.get('user/');
-      return jsonDecode(response.body);
+      return response;
     } catch (_) {
       throw UserNotFound();
     }
