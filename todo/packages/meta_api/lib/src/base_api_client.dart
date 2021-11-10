@@ -1,7 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:exception_handler/exception_handler.dart';
@@ -36,7 +32,19 @@ class BaseApiClient {
   Future<Map<String, dynamic>?> post(String url, String body,
       [bool auth = false]) async {
     try {
-      Response response = await _dio.post(url, data: body);
+      Response response;
+      if (!auth) {
+        response = await _dio.post(url, data: body);
+      } else {
+        response = await _dio.post(
+          url,
+          data: body,
+          options: dio.Options(
+            headers: {"requiresToken": true},
+          ),
+        );
+      }
+
       return response.data;
     } on DioError catch (e) {
       final errMsg = DioException.fromDioError(e);
@@ -46,7 +54,13 @@ class BaseApiClient {
 
   Future<Map<String, dynamic>?> patch(String url, String body) async {
     try {
-      Response response = await _dio.patch(url, data: body);
+      Response response = await _dio.patch(
+        url,
+        data: body,
+        options: dio.Options(
+          headers: {"requiresToken": true},
+        ),
+      );
       return response.data;
     } on DioError catch (e) {
       final errMsg = DioException.fromDioError(e);
@@ -56,7 +70,12 @@ class BaseApiClient {
 
   Future<Map<String, dynamic>?> delete(String url) async {
     try {
-      Response response = await _dio.delete(url);
+      Response response = await _dio.delete(
+        url,
+        options: dio.Options(
+          headers: {"requiresToken": true},
+        ),
+      );
       return response.data;
     } on DioError catch (e) {
       final errMsg = DioException.fromDioError(e);

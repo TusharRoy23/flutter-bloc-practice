@@ -22,3 +22,9 @@ class TodoLoadSuccess extends TodosState {
 }
 
 class TodosLoadFailure extends TodosState {}
+
+class TodosExceptionState extends TodosState {
+  final List<dynamic> message;
+
+  TodosExceptionState(this.message);
+}

@@ -7,15 +7,28 @@ abstract class TodosEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class TodosLoaded extends TodosEvent {}
+class TodosLoadedEvent extends TodosEvent {}
 
-class TodosAdded extends TodosEvent {
+class TodoUpdateEvent extends TodosEvent {
   final Todo todo;
 
-  const TodosAdded(this.todo);
+  const TodoUpdateEvent(this.todo);
+  @override
+  List<Object> get props => [todo];
+
+  @override
+  String toString() => 'TodoUpdate { todo: $todo }';
+}
+
+class TodoCreateEvent extends TodosEvent {
+  final Todo todo;
+
+  const TodoCreateEvent(this.todo);
   @override
   List<Object> get props => [todo];
 
   @override
   String toString() => 'TodoAdded { todo: $todo }';
 }
+
+class ErrorClearEvent extends TodosEvent {}

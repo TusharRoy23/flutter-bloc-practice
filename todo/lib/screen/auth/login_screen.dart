@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:repository_module/repository_module.dart';
-import 'package:todo/constants/enums.dart';
+import 'package:todo/constants/dialog_box.dart';
 import 'package:todo/logic/bloc/login/login_bloc.dart';
 import 'package:todo/logic/cubit/internet_cubit.dart';
 
@@ -19,7 +17,13 @@ class LoginScreen extends StatelessWidget {
       create: (context) => LoginBloc(
         RepositoryProvider.of<AuthRepository>(context),
       ),
-      child: LoginElementScreen(),
+      child: BlocListener<InternetCubit, InternetState>(
+        listener: (_, state) {
+          if (state is InternetDisconnected)
+            DialogBox.showDailogBox(context, 'No Internet Connection!');
+        },
+        child: LoginElementScreen(),
+      ),
     );
   }
 }

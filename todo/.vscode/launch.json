@@ -34,9 +34,10 @@
             "type": "dart",
             "flutterMode": "profile"
         },
+       
         {
-            "name": "todo_repository",
-            "cwd": "packages/todo_repository",
+            "name": "todo",
+            "cwd": "lib/main.dart",
             "request": "launch",
             "type": "dart"
         }

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -29,9 +28,8 @@ class InternetCubit extends Cubit<InternetState> {
     });
   }
 
-  void emitInternetConnected(ConnectionType _connectionType) {
-    return emit(InternetConnected(_connectionType));
-  }
+  void emitInternetConnected(ConnectionType _connectionType) =>
+      emit(InternetConnected(_connectionType));
 
   void emitInternetDisconnected() => emit(InternetDisconnected());
 
