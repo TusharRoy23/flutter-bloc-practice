@@ -142,7 +142,6 @@ class _TodoDetailsItemState extends State<TodoDetailsItem> {
       return;
     }
     _formKey.currentState!.save();
-    log('$_formElement');
 
     Todo todo = Todo().copyWith(
       id: _formElement.value['id'],

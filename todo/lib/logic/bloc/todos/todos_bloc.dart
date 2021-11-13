@@ -37,6 +37,8 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
                 .toList()
             : [];
 
+        todo.sort((firstObj, secondObj) => secondObj.id.compareTo(firstObj.id));
+
         emit(TodoLoadSuccess(todo));
       } catch (_) {
         TodosLoadFailure();
@@ -85,7 +87,9 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
             );
         if (!newTodo!.id.isNegative) {
           _errorHandlerRepository.setFormStatus();
-          todos.add(
+          // Add in beginning of the array
+          todos.insert(
+            0,
             Todo(
               id: newTodo.id,
               title: newTodo.title,

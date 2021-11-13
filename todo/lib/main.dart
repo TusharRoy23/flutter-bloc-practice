@@ -11,6 +11,8 @@ import 'package:todo/logic/cubit/exception_cubit.dart';
 import 'package:todo/logic/cubit/internet_cubit.dart';
 import 'package:todo/logic/simple_bloc_observer.dart';
 
+import 'logic/bloc/filtered_todos/filtered_todos_bloc.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HydratedBloc.storage = await HydratedStorage.build(
@@ -59,6 +61,11 @@ class MyApp extends StatelessWidget {
             )..add(
                 TodosLoadedEvent(),
               ),
+          ),
+          BlocProvider<FilteredTodosBloc>(
+            create: (context) => FilteredTodosBloc(
+              todosBloc: BlocProvider.of<TodosBloc>(context),
+            ),
           ),
         ],
         child: LandingScreen(),
