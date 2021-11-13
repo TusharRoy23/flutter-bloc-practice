@@ -3,10 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:repository_module/repository_module.dart';
 import 'package:todo/constants/dialog_box.dart';
 import 'package:todo/logic/bloc/auth/auth_bloc.dart';
+import 'package:todo/logic/bloc/filtered_todos/filtered_todos_bloc.dart';
 import 'package:todo/logic/bloc/todos/todos_bloc.dart';
 import 'package:todo/logic/cubit/exception_cubit.dart';
 import 'package:todo/logic/cubit/internet_cubit.dart';
 import 'package:todo/screen/todo/todo_details.dart';
+import 'package:todo/widgets/filter_button.dart';
 
 class TodoScreen extends StatelessWidget {
   const TodoScreen({Key? key}) : super(key: key);
@@ -44,6 +46,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
       appBar: AppBar(
         title: Text('TODO List'),
         actions: [
+          FilterButton(),
           IconButton(
             onPressed: () {
               context.read<AuthBloc>().add(AuthLogoutRequested());
@@ -52,12 +55,12 @@ class _TodoListScreenState extends State<TodoListScreen> {
           ),
         ],
       ),
-      body: BlocConsumer<TodosBloc, TodosState>(
+      body: BlocConsumer<FilteredTodosBloc, FilteredTodosState>(
         builder: (_, state) {
           if (state is TodoLoadInProgress)
             return Center(child: CircularProgressIndicator());
-          else if (state is TodoLoadSuccess) {
-            final todo = state.todos;
+          else if (state is FilteredTodosLoadSuccess) {
+            final todo = state.filteredTodos;
             return ListView.builder(
               physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics()),
