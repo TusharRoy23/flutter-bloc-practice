@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:exception_handler/exception_handler.dart';
+// import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:repository_module/repository_module.dart';
 
 part 'todos_event.dart';
@@ -108,4 +109,25 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
   void _clearTodoError(ErrorClearEvent event, Emitter<TodosState> emit) {
     _errorHandlerRepository.clearErrorMessage();
   }
+
+  // @override
+  // TodosState? fromJson(Map<String, dynamic> json) {
+  //   log('fromJson: $json');
+  //   try {
+  //     final todo = Todo.fromJson(json);
+  //     return TodoLoadSuccess(todo as List<Todo>);
+  //   } catch (_) {
+  //     return null;
+  //   }
+  // }
+
+  // @override
+  // Map<String, dynamic>? toJson(TodosState state) {
+  //   if (state is TodoLoadSuccess) {
+  //     var val = state.todos as Map<String, dynamic>;
+  //     log('val is: $val');
+  //     return state.todos as Map<String, dynamic>;
+  //   }
+  //   return null;
+  // }
 }
