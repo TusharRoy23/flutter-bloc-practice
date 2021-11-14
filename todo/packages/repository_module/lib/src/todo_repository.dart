@@ -5,8 +5,6 @@ import 'package:meta_api/meta_api.dart';
 
 import '../repository_module.dart';
 
-class TodoFailure implements Exception {}
-
 class TodoRepository {
   final MetaTodoApiClient _todoApiClient;
 
