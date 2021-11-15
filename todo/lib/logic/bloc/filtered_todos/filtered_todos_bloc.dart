@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+// import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:repository_module/repository_module.dart';
 import 'package:todo/constants/enums.dart';
 import 'package:todo/logic/bloc/todos/todos_bloc.dart';
@@ -75,4 +76,20 @@ class FilteredTodosBloc extends Bloc<FilteredTodosEvent, FilteredTodosState> {
     todosSubscription.cancel();
     return super.close();
   }
+
+  // @override
+  // FilteredTodosState? fromJson(Map<String, dynamic> json) {
+  //   if (state is FilteredTodosLoadSuccess) {
+  //     return FilteredTodosLoadSuccess.fromMap(json);
+  //   }
+  //   return null;
+  // }
+
+  // @override
+  // Map<String, dynamic>? toJson(FilteredTodosState state) {
+  //   if (state is FilteredTodosLoadSuccess) {
+  //     return state.toMap();
+  //   }
+  //   return null;
+  // }
 }

@@ -22,7 +22,6 @@ class ApiInterceptors extends Interceptor {
       RequestOptions options, RequestInterceptorHandler handler) async {
     if (options.headers.containsKey('requiresToken')) {
       var accessToken = await storage.read(key: 'accessToken');
-      // options.headers.addAll({"Authorization": accessToken});
       options.headers.addAll({HttpHeaders.authorizationHeader: accessToken});
     }
 
