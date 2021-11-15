@@ -27,6 +27,8 @@ dependencies:
     path: packages/repository_module
   exception_handler:
     path: packages/exception_handler
+  meta_api:
+    path: packages/meta_api
   bloc: ^7.1.0
   hydrated_bloc: ^7.1.0
   equatable: ^2.0.0

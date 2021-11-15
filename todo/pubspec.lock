@@ -409,7 +409,7 @@ packages:
     source: hosted
     version: "1.3.0"
   meta_api:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "packages/meta_api"
       relative: true

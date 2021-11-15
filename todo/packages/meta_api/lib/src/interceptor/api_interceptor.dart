@@ -5,15 +5,16 @@ import 'dart:io';
 import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:meta_api/src/constant/endpoints.dart';
+import 'package:meta_api/src/environments/environment.dart';
 
 class ApiInterceptors extends Interceptor {
   var storage = FlutterSecureStorage();
+
   final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: EndPoints.baseUrl,
-      connectTimeout: EndPoints.connectionTimeout,
-      receiveTimeout: EndPoints.receiveTimeout,
+      baseUrl: Environment().config!.apiHost,
+      connectTimeout: Environment().config!.connectionTimeout,
+      receiveTimeout: Environment().config!.receiveTimeout,
     ),
   );
 
