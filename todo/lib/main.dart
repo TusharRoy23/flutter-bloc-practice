@@ -2,7 +2,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:meta_api/meta_api.dart';
+// import 'package:path_provider/path_provider.dart';
 import 'package:repository_module/repository_module.dart';
 import 'package:todo/logic/bloc/auth/auth_bloc.dart';
 import 'package:todo/landing_screen.dart';
@@ -15,13 +16,20 @@ import 'logic/bloc/filtered_todos/filtered_todos_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  HydratedBloc.storage = await HydratedStorage.build(
-    storageDirectory: await getTemporaryDirectory(),
+  // HydratedBloc.storage = await HydratedStorage.build(
+  //   storageDirectory: await getTemporaryDirectory(),
+  // );
+  const String environment = String.fromEnvironment(
+    'ENVIRONMENT',
+    defaultValue: Environment.DEV,
   );
+  Environment().initConfig(environment);
   Bloc.observer = SimpleBlocObserver();
-  runApp(MyApp(
-    connectivity: Connectivity(),
-  ));
+  runApp(
+    MyApp(
+      connectivity: Connectivity(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

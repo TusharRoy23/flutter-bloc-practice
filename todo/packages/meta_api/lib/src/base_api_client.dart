@@ -2,17 +2,18 @@ import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:exception_handler/exception_handler.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:meta_api/src/environments/environment.dart';
 import 'package:meta_api/src/interceptor/api_interceptor.dart';
-import 'constant/endpoints.dart';
 
 class BaseApiClient {
   var storage = FlutterSecureStorage();
 
   final Dio _dio = Dio(
     BaseOptions(
-        baseUrl: EndPoints.baseUrl,
-        connectTimeout: EndPoints.connectionTimeout,
-        receiveTimeout: EndPoints.receiveTimeout),
+      baseUrl: Environment().config!.apiHost,
+      connectTimeout: Environment().config!.connectionTimeout,
+      receiveTimeout: Environment().config!.receiveTimeout,
+    ),
   )..interceptors.add(ApiInterceptors());
 
   Future<dynamic> get(String url, [bool auth = true]) async {
