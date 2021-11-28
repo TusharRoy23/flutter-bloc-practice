@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:exception_handler/exception_handler.dart';
 import 'package:meta_api/src/base_api_client.dart';
 
+import '../meta_api.dart';
+import 'interceptor/api_interceptor.dart';
 import 'model/todo.dart';
 
 class TodoRequestFailure implements Exception {}
@@ -10,6 +13,17 @@ class TodoRequestFailure implements Exception {}
 class MetaTodoApiClient {
   final BaseApiClient _baseApiClient;
 
+  // MetaTodoApiClient({BaseApiClient? baseApiClient})
+  //     : _baseApiClient = baseApiClient ??
+  //           BaseApiClient(
+  //             Dio(
+  //               BaseOptions(
+  //                 baseUrl: Environment().config!.apiHost,
+  //                 connectTimeout: Environment().config!.connectionTimeout,
+  //                 receiveTimeout: Environment().config!.receiveTimeout,
+  //               ),
+  //             )..interceptors.add(ApiInterceptors()),
+  //           );
   MetaTodoApiClient({BaseApiClient? baseApiClient})
       : _baseApiClient = baseApiClient ?? BaseApiClient();
 
