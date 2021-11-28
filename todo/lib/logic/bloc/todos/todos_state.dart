@@ -27,4 +27,7 @@ class TodosExceptionState extends TodosState {
   final List<dynamic> message;
 
   TodosExceptionState(this.message);
+
+  @override
+  List<Object> get props => [message];
 }

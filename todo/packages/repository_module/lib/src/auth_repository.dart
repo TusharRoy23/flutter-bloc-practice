@@ -12,13 +12,13 @@ class UserNotFound implements Exception {}
 class AuthRepository {
   final MetaAuthApiClient _authApiClient;
   final _controller = StreamController<AuthenticationStatus>();
-  var storage = FlutterSecureStorage();
+  var _storage = FlutterSecureStorage();
 
   AuthRepository({MetaAuthApiClient? authApiClient})
       : _authApiClient = authApiClient ?? MetaAuthApiClient();
 
   Stream<AuthenticationStatus> get status async* {
-    var accessToken = await storage.read(key: 'accessToken');
+    var accessToken = await _storage.read(key: 'accessToken');
     await Future<void>.delayed(const Duration(seconds: 1));
     yield accessToken != null
         ? AuthenticationStatus.authenticated
@@ -63,7 +63,7 @@ class AuthRepository {
     try {
       var user = await _authApiClient.getUser();
       return User(
-        username: 'username',
+        username: user['username'],
         userId: user['id'],
         address: user['address'],
         petName: user['petName'],

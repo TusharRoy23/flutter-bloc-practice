@@ -1,11 +1,15 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:exception_handler/exception_handler.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:meta_api/src/base_api_client.dart';
 import 'package:meta_api/src/model/token.dart';
 import 'package:meta_api/src/model/user.dart';
 import 'package:meta_api/src/model/user_info.dart';
+
+import '../meta_api.dart';
+import 'interceptor/api_interceptor.dart';
 
 class AuthenticationFailure implements Exception {}
 
@@ -14,6 +18,18 @@ class UserNotFound implements Exception {}
 class MetaAuthApiClient {
   var storage = FlutterSecureStorage();
   final BaseApiClient _baseApiClient;
+  // MetaAuthApiClient({BaseApiClient? baseApiClient})
+  //     : _baseApiClient = baseApiClient ??
+  //           BaseApiClient(
+  //             Dio(
+  //               BaseOptions(
+  //                 baseUrl: Environment().config!.apiHost,
+  //                 connectTimeout: Environment().config!.connectionTimeout,
+  //                 receiveTimeout: Environment().config!.receiveTimeout,
+  //               ),
+  //             )..interceptors.add(ApiInterceptors()),
+  //           );
+
   MetaAuthApiClient({BaseApiClient? baseApiClient})
       : _baseApiClient = baseApiClient ?? BaseApiClient();
 
